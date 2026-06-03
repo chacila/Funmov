@@ -1,0 +1,38 @@
+.movie-details {
+  display: flex;
+  gap: 40px;
+  padding: 50px;
+  color: white;
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+  min-height: 100vh;
+  align-items: flex-start;
+}
+
+.movie-details img {
+  width: 320px;
+  height: 480px;
+  object-fit: cover; /* 🔥 corrige déformation */
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.movie-info {
+  max-width: 700px;
+}
+
+.movie-title {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.movie-meta {
+  opacity: 0.7;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.movie-overview {
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.9;
+}

@@ -2,19 +2,21 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
 import Layout from './components/Layout/Layout';
-import Counter from './pages/Counter/Counter';
+import AddMovie from './pages/AddMovie/AddMovie';
 import Users from './pages/Users/Users';
+import MovieDetails from './pages/MovieDetails/MovieDetails';
 
 function App() {
   return (
-    <Layout>
-      <Routes>
+    <Routes>
+      <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
-        <Route path="counter" element={<Counter />} />
-        <Route path="users" element={<Users />} />
-        <Route path="about" element={<About />} />
-      </Routes>
-    </Layout>
+        <Route path="/add-movie" element={<AddMovie />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/movie/:id" element={<MovieDetails />} />
+      </Route>
+    </Routes>
   );
 }
 

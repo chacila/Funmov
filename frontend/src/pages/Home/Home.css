@@ -1,37 +1,103 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0b14;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.header {
+  text-align: center;
+  padding: 30px;
+  background: linear-gradient(90deg, #ff4d6d, #ffb703);
+  color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.header h1 {
+  margin: 0;
+  font-size: 42px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  max-width: 480px;
+  margin: 20px auto;
+  padding: 10px 14px;
+
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+
+  backdrop-filter: blur(10px);
+  transition: 0.2s ease;
+}
+
+.search-bar:hover {
+  border-color: #ffb703;
+  transform: scale(1.02);
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  font-size: 15px;
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  padding: 30px;
+  list-style: none;
+}
+
+@media (max-width: 1200px) {
+  .movie-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media (max-width: 900px) {
+  .movie-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
+}
+
+@media (max-width: 600px) {
+  .movie-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.load-more-button {
+  display: block;
+  margin: 30px auto;
+  padding: 12px 22px;
+
+  border: none;
+  border-radius: 999px;
+
+  background: #ffb703;
+  color: black;
+
+  font-weight: bold;
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.load-more-button:hover {
+  transform: scale(1.05);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+
+  background: radial-gradient(circle at top, #1a1a2e, #0b0b14);
+  z-index: -1;
 }

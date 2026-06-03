@@ -1,11 +1,15 @@
 import './Layout.css';
+import { Outlet } from 'react-router-dom';
 import Header from '../Header/Header';
 
-const Layout = ({ children }) => {
+const Layout = () => {
   return (
     <div className="Layout-container">
       <Header />
-      <div className="Layout-content">{children}</div>
+
+      <div className="Layout-content">
+        <Outlet />
+      </div>
     </div>
   );
 };

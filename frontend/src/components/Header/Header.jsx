@@ -3,23 +3,26 @@ import './Header.css';
 
 const Header = () => {
   return (
-    <div className="Header-container">
-      <Link className="Link" to="/">
-        Home
-      </Link>
-      <div>|</div>
-      <Link className="Link" to="/counter">
-        Counter
-      </Link>
-      <div>|</div>
-      <Link className="Link" to="/users">
-        Users
-      </Link>
-      <div>|</div>
-      <Link className="Link" to="/about">
-        About
-      </Link>
-    </div>
+    <header className="Header-container">
+      <div className="Header-left">
+        😂 <span className="logo">Funmov</span>
+      </div>
+
+      <nav className="Header-nav">
+        <Link className="Link" to="/">
+          Home
+        </Link>
+        <Link className="Link" to="/add-movie">
+          Ajouter un film
+        </Link>
+        <Link className="Link" to="/users">
+          Users
+        </Link>
+        <Link className="Link" to="/about">
+          About
+        </Link>
+      </nav>
+    </header>
   );
 };
 

@@ -1,16 +1,39 @@
 .Header-container {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 5px;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 15px 30px;
+  background: linear-gradient(90deg, #ff4d6d, #ffb703);
+  color: white;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.Header-container > :not(:last-child) {
-  margin-right: 10px;
+.Header-left {
+  font-size: 22px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo {
+  font-weight: 800;
+}
+
+.Header-nav {
+  display: flex;
+  gap: 25px;
 }
 
 .Link {
-  font-weight: 700;
   color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.Link:hover {
+  opacity: 0.7;
 }

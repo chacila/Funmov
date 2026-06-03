@@ -1,0 +1,36 @@
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 15px 30px;
+  background: linear-gradient(90deg, #ff4d6d, #ffb703);
+  color: white;
+
+  position: sticky;
+  top: 0;
+}
+
+.logo {
+  margin: 0;
+  font-size: 22px;
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav a:hover {
+  opacity: 0.7;
+}
+
+.page-content {
+  padding: 20px;
+}

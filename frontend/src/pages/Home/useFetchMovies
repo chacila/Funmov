@@ -1,0 +1,41 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+export function useFetchMovies() {
+  const [movieName, setMovieName] = useState('');
+  const [movies, setMovies] = useState([]);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    const options = {
+      method: 'GET',
+      url: `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&with_genres=35&language=en-US&page=${page}&sort_by=popularity.desc`,
+      headers: {
+        accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZjlmNjAwMzY4MzMzODNkNGIwYjNhNzJiODA3MzdjNCIsInN1YiI6IjY0NzA5YmE4YzVhZGE1MDBkZWU2ZTMxMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Em7Y9fSW94J91rbuKFjDWxmpWaQzTitxRKNdQ5Lh2Eo',
+      },
+    };
+
+    axios
+      .request(options)
+      .then((res) => {
+        setMovies((previousMovies) => [...previousMovies, ...res.data.results]);
+      })
+      .catch((err) => console.error(err));
+  }, [page]);
+
+  const loadMoreMovies = () => {
+    if (page < 5) {
+      setPage((previousPage) => previousPage + 1);
+    }
+  };
+
+  return {
+    movieName,
+    setMovieName,
+    movies,
+    page,
+    loadMoreMovies,
+  };
+}
