@@ -32,10 +32,9 @@ const startServer = async () => {
   app.use('/movies', moviesRouter);
   app.use('/api', ratingsRouter);
 
-  app.use('/auth', authRouter);
-
-  app.use(routeNotFoundJsonHandler);
-  app.use(jsonErrorHandler);
+  // Register 404 middleware and error handler
+  app.use(routeNotFoundJsonHandler); // this middleware must be registered after all routes to handle 404 correctly
+  app.use(jsonErrorHandler); // this error handler must be registered after all middleware to catch all errors
 
   const port = parseInt(process.env.PORT || '8000');
 
