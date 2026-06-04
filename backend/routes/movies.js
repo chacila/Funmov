@@ -1,4 +1,5 @@
 import express from 'express';
+import axios from 'axios';
 import { appDataSource } from '../datasource.js';
 import Movie from '../entities/movie.js';
 
@@ -20,23 +21,70 @@ router.get('/', function (req, res) {
     });
 });
 
-router.post('/new', function (req, res) {
-  const movieRepository = appDataSource.getRepository(Movie);
+router.post('/new', async (req, res) => {
+  try {
+    const movieRepository = appDataSource.getRepository(Movie);
 
-  const newMovie = movieRepository.create({
-    title: req.body.title,
-    release_date: req.body.release_date,
-  });
+    const { tmdb_id, title, release_date, overview, poster_path } = req.body;
 
-  movieRepository
-    .insert(newMovie)
-    .then(() => {
-      res.status(201).json({ message: 'Movie created' });
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).json({ message: 'Error creating movie' });
+    const existingMovie = await movieRepository.findOneBy({
+      tmdb_id,
     });
+
+    if (existingMovie) {
+      return res.status(400).json({
+        message: 'Film déjà présent dans la base',
+      });
+    }
+
+    const movie = movieRepository.create({
+      tmdb_id,
+      title,
+      release_date,
+      overview,
+      poster_path,
+    });
+
+    await movieRepository.save(movie);
+
+    res.status(201).json({
+      message: 'Film ajouté',
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Erreur lors de l'ajout",
+    });
+  }
+});
+
+router.get('/search', async (req, res) => {
+  try {
+    console.log('TMDB TOKEN =', process.env.TMDB_TOKEN);
+    const { query } = req.query;
+
+    const response = await axios.get(
+      'https://api.themoviedb.org/3/search/movie',
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.TMDB_TOKEN}`,
+          accept: 'application/json',
+        },
+        params: {
+          query,
+        },
+      }
+    );
+
+    res.json(response.data.results);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: 'Erreur TMDB',
+    });
+  }
 });
 
 router.get('/:id', function (req, res) {

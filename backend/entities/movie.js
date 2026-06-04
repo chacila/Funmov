@@ -2,6 +2,7 @@ import typeorm from 'typeorm';
 
 const Movie = new typeorm.EntitySchema({
   name: 'Movie',
+
   columns: {
     id: {
       primary: true,
@@ -23,6 +24,14 @@ const Movie = new typeorm.EntitySchema({
     },
     poster_path: {
       type: String,
+    },
+  },
+
+  relations: {
+    ratings: {
+      type: 'one-to-many',
+      target: 'UserMovie',
+      inverseSide: 'movie',
     },
   },
 });
