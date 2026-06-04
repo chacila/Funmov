@@ -9,10 +9,10 @@ function Find() {
 
   const [isLoading, setisLoading] = useState(false);
 
-  const [sortField, setSortField] = useState('notes');
+  const [sortField, setSortField] = useState('vote');
   const [sortOrder, setSortOrder] = useState('desc');
 
-  const [appliedField, setAppliedField] = useState('notes');
+  const [appliedField, setAppliedField] = useState('vote');
   const [appliedOrder, setAppliedOrder] = useState('desc');
   const hasChanges = sortField !== appliedField || sortOrder !== appliedOrder;
 
@@ -51,9 +51,9 @@ function Find() {
           valueB = new Date(b.release_date);
           break;
 
-        case 'notes':
-          valueA = a.notes ?? 0;
-          valueB = b.notes ?? 0;
+        case 'vote':
+          valueA = a.vote ?? 0;
+          valueB = b.vote ?? 0;
           break;
 
         case 'popularity':
@@ -66,14 +66,14 @@ function Find() {
           valueB = b.comments?.length ?? 0;
           break;
 
-        case 'duration':
-          valueA = a.duration ?? 0;
-          valueB = b.duration ?? 0;
+        case 'vote_count':
+          valueA = a.vote_count ?? 0;
+          valueB = b.vote_count ?? 0;
           break;
 
         default:
-          valueA = a.notes ?? 0;
-          valueB = b.notes ?? 0;
+          valueA = a.vote ?? 0;
+          valueB = b.vote ?? 0;
       }
 
       let result;
@@ -108,12 +108,12 @@ function Find() {
               value={sortField}
               onChange={(e) => setSortField(e.target.value)}
             >
-              <option value="notes">Notes</option>
+              <option value="vote">Note /10</option>
+              <option value="vote_count">Nombre de notes</option>
               <option value="popularity">Popularité</option>
               <option value="comments">Commentaires</option>
               <option value="title">Titre</option>
               <option value="release_date">Date de sortie</option>
-              <option value="duration">Durée</option>
             </select>
           </label>
         </div>
