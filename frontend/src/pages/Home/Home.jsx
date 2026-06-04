@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useFetchMovies } from './useFetchMovies';
+import { useFetchMoviesLocal } from './useFetchMovies';
 import Movie from '../../components/Movie/Movie.jsx';
 import './Home.css';
 
@@ -9,7 +9,7 @@ function Home() {
   const [releaseDate, setReleaseDate] = useState('');
 
   const { movieName, setMovieName, movies, page, loadMoreMovies } =
-    useFetchMovies();
+    useFetchMoviesLocal();
 
   const handleSubmit = (e) => {
     e.preventDefault();

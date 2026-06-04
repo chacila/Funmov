@@ -38,6 +38,9 @@ async function seed() {
       overview: movie.overview,
       poster_path: movie.poster_path,
       tmdb_id: movie.id,
+      popularity: movie.popularity,
+      vote: movie.vote_average,
+      vote_count: movie.vote_count,
     });
 
     await repo.insert(newMovie);
