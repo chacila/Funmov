@@ -6,6 +6,7 @@ import Layout from './components/Layout/Layout';
 import Users from './pages/Users/Users';
 import MovieDetails from './pages/MovieDetails/MovieDetails';
 import Profile from './pages/Profile/Profile';
+import AddMovie from './pages/AddMovie/AddMovie';
 
 function App() {
   return (

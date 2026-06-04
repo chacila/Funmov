@@ -27,12 +27,17 @@ const Movie = new typeorm.EntitySchema({
     },
     popularity: {
       type: Number,
+      nullable: true,
     },
+
     vote: {
       type: Number,
+      nullable: true,
     },
+
     vote_count: {
       type: Number,
+      nullable: true,
     },
   },
 

@@ -1,4 +1,5 @@
 import { DataSource } from 'typeorm';
+import 'dotenv/config';
 
 export const appDataSource = new DataSource({
   type: 'better-sqlite3',
