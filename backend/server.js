@@ -9,6 +9,7 @@ import { jsonErrorHandler } from './services/jsonErrorHandler.js';
 import { routeNotFoundJsonHandler } from './services/routeNotFoundJsonHandler.js';
 import moviesRouter from './routes/movies.js';
 import authRouter from './routes/auth.js';
+import ratingsRouter from './routes/ratings.js';
 
 const startServer = async () => {
   console.log('Data Source has been initialized!');
@@ -23,9 +24,13 @@ const startServer = async () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 
+
+
+  // Register routes
   app.use('/', indexRouter);
   app.use('/users', usersRouter);
   app.use('/movies', moviesRouter);
+  app.use('/api', ratingsRouter);
 
   app.use('/auth', authRouter);
 
