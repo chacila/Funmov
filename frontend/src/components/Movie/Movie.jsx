@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function Movie({ movie }) {
   return (
     <li className="movie-card">
-      <Link to={`/movie/${movie.id}`}>
+      <Link to={`/movie/${movie.tmdb_id}`}>
         <div className="movie-image-wrapper">
           <img
             src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
