@@ -12,6 +12,9 @@ const Header = () => {
         <Link className="Link" to="/">
           Home
         </Link>
+        <Link className="Link" to="/find">
+          Find
+        </Link>
         <Link className="Link" to="/add-movie">
           Ajouter un film
         </Link>

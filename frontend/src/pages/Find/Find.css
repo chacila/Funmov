@@ -1,0 +1,97 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0b14;
+  color: white;
+}
+
+.header {
+  text-align: center;
+  padding: 30px;
+  background: linear-gradient(90deg, #ff4d6d, #ffb703);
+  color: white;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 42px;
+}
+.filter-panel {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  gap: 16px;
+  margin: 30px auto;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-group label {
+  color: white;
+  font-size: 14px;
+}
+
+.filter-group select {
+  min-width: 180px;
+  padding: 10px 14px;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  background: white;
+  color: black;
+
+  backdrop-filter: blur(10px);
+}
+
+.apply-filter-button {
+  padding: 10px 20px;
+
+  border: none;
+  border-radius: 999px;
+
+  background: #ffb703;
+  color: black;
+
+  font-weight: bold;
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.apply-filter-button:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.apply-filter-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.loader-container {
+  min-height: 500px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader-smiley {
+  font-size: 120px;
+  animation: spinSmiley 1.5s linear infinite;
+}
+
+@keyframes spinSmiley {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

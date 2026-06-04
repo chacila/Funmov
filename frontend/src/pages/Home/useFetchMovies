@@ -39,3 +39,33 @@ export function useFetchMovies() {
     loadMoreMovies,
   };
 }
+
+export function useFetchMoviesLocal() {
+  const [movieName, setMovieName] = useState('');
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    const options = {
+      method: 'GET',
+      url: 'http://localhost:8000/movies',
+      //headers: {
+      //  accept: 'application/json',
+      //Authorization:
+      //  'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZjlmNjAwMzY4MzMzODNkNGIwYjNhNzJiODA3MzdjNCIsInN1YiI6IjY0NzA5YmE4YzVhZGE1MDBkZWU2ZTMxMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Em7Y9fSW94J91rbuKFjDWxmpWaQzTitxRKNdQ5Lh2Eo',
+      //},
+    };
+
+    axios
+      .request(options)
+      .then((res) => {
+        setMovies(res.data.movies);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  return {
+    movieName,
+    setMovieName,
+    movies,
+  };
+}
