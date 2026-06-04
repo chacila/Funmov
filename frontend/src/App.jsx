@@ -3,9 +3,9 @@ import Home from './pages/Home/Home';
 import Find from './pages/Find/Find';
 import About from './pages/About/About';
 import Layout from './components/Layout/Layout';
-import AddMovie from './pages/AddMovie/AddMovie';
 import Users from './pages/Users/Users';
 import MovieDetails from './pages/MovieDetails/MovieDetails';
+import Profile from './pages/Profile/Profile';
 
 function App() {
   return (
@@ -17,6 +17,7 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/about" element={<About />} />
         <Route path="/movie/:id" element={<MovieDetails />} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
     </Routes>
   );

@@ -2,13 +2,15 @@ import { Link } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+
   return (
     <header className="Header-container">
       <div className="Header-left">
         😂 <span className="logo">Funmov</span>
       </div>
 
-      <nav className="Header-nav">
+      <div className="header-right">
         <Link className="Link" to="/">
           Home
         </Link>
@@ -21,10 +23,34 @@ const Header = () => {
         <Link className="Link" to="/users">
           Users
         </Link>
+
         <Link className="Link" to="/about">
           About
         </Link>
-      </nav>
+
+        {!user ? (
+          <Link className="Link" to="/users">
+            Login / Register
+          </Link>
+        ) : (
+          <>
+            <Link className="Link" to="/profile">
+              👤 {user.username}
+            </Link>
+
+            <button
+              className="logout-btn"
+              onClick={() => {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.location.href = '/';
+              }}
+            >
+              unlogin
+            </button>
+          </>
+        )}
+      </div>
     </header>
   );
 };

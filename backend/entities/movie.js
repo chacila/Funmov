@@ -2,6 +2,7 @@ import typeorm from 'typeorm';
 
 const Movie = new typeorm.EntitySchema({
   name: 'Movie',
+
   columns: {
     id: {
       primary: true,
@@ -32,6 +33,14 @@ const Movie = new typeorm.EntitySchema({
     },
     vote_count: {
       type: Number,
+    },
+  },
+
+  relations: {
+    ratings: {
+      type: 'one-to-many',
+      target: 'UserMovie',
+      inverseSide: 'movie',
     },
   },
 });

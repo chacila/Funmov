@@ -10,6 +10,8 @@ async function seed() {
 
   const repo = appDataSource.getRepository(Movie);
 
+  await repo.clear();
+
   let allMovies = [];
 
   for (let page = 1; page <= 5; page++) {
