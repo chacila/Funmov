@@ -29,6 +29,7 @@ const startServer = async () => {
   app.use('/users', usersRouter);
   app.use('/movies', moviesRouter);
   app.use('/api', ratingsRouter);
+  app.use('/auth', authRouter);
 
   // Register 404 middleware and error handler
   app.use(routeNotFoundJsonHandler); // this middleware must be registered after all routes to handle 404 correctly
