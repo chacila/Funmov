@@ -1,13 +1,108 @@
-.Users-container {
+/* Page background */
+.auth-page {
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  font-family: Arial, sans-serif;
 }
 
-.Users-container > :not(:last-child) {
+/* Card */
+.auth-card {
+  width: 380px;
+  padding: 40px;
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  color: white;
+
+  animation: fadeIn 0.5s ease;
+}
+
+/* Title */
+.auth-title {
+  margin-bottom: 8px;
+  font-size: 26px;
+}
+
+/* Subtitle */
+.auth-subtitle {
+  font-size: 14px;
+  opacity: 0.7;
   margin-bottom: 20px;
 }
 
-.users-loading-error {
-  color: red;
+/* Form */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Inputs */
+.auth-form input {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.auth-form input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Button */
+.auth-form button {
+  margin-top: 10px;
+  padding: 12px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #4f46e5;
+  color: white;
+  font-weight: bold;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.auth-form button:hover {
+  background: #6366f1;
+  transform: translateY(-1px);
+}
+
+/* Switch text */
+.auth-switch {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 13px;
+
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.auth-switch:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

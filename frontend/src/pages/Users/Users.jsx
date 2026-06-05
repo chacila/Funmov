@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import api from '../../services/axios.js';
+import './users.css';
 
 function Users() {
   const [isLogin, setIsLogin] = useState(true);
@@ -29,53 +30,65 @@ function Users() {
           password,
         });
 
-        alert('Compte créé avec succès !');
-
         setIsLogin(true);
-
+        setEmail('');
+        setUsername('');
         setPassword('');
+
+        alert('Compte créé avec succès !');
       }
     } catch (error) {
       console.error(error);
-
-      alert(error.response?.data?.message || 'Une erreur est survenue');
+      alert(error.response?.data?.message || 'Erreur');
     }
   };
 
   return (
-    <div className="auth-container">
-      <h1>{isLogin ? 'Connexion' : 'Inscription'}</h1>
+    <div className="auth-page">
+      <div className="auth-card">
+        <h1 className="auth-title">
+          {isLogin ? 'Welcome back 👋' : 'Create account 🚀'}
+        </h1>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Adresse email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <p className="auth-subtitle">
+          {isLogin
+            ? 'Sign in to continue'
+            : 'Create your account in just a few seconds'}
+        </p>
 
-        {!isLogin && (
+        <form onSubmit={handleSubmit} className="auth-form">
           <input
-            type="text"
-            placeholder="Pseudo"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
-        )}
 
-        <input
-          type="password"
-          placeholder="Mot de passe"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          {!isLogin && (
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          )}
 
-        <button type="submit">{isLogin ? 'Se connecter' : "S'inscrire"}</button>
-      </form>
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-      <p onClick={() => setIsLogin(!isLogin)} style={{ cursor: 'pointer' }}>
-        {isLogin ? 'Créer un compte' : 'Déjà inscrit ?'}
-      </p>
+          <button type="submit">{isLogin ? 'Login' : 'Register'}</button>
+        </form>
+
+        <p className="auth-switch" onClick={() => setIsLogin(!isLogin)}>
+          {isLogin
+            ? 'No account yet ? Create one'
+            : 'Already have an account ? Login'}
+        </p>
+      </div>
     </div>
   );
 }

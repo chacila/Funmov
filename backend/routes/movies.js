@@ -25,7 +25,16 @@ router.post('/new', async (req, res) => {
   try {
     const movieRepository = appDataSource.getRepository(Movie);
 
-    const { tmdb_id, title, release_date, overview, poster_path } = req.body;
+    const {
+      tmdb_id,
+      title,
+      release_date,
+      overview,
+      poster_path,
+      popularity,
+      vote,
+      vote_count,
+    } = req.body;
 
     const existingMovie = await movieRepository.findOneBy({
       tmdb_id,
@@ -43,6 +52,9 @@ router.post('/new', async (req, res) => {
       release_date,
       overview,
       poster_path,
+      popularity,
+      vote,
+      vote_count,
     });
 
     await movieRepository.save(movie);
