@@ -137,23 +137,4 @@ router.delete('/:id', function (req, res) {
     });
 });
 
-//router.get('/find', async function (req, res) {
-//  const movieRepository = appDataSource.getRepository(Movie);
-//
-//const sort = req.query.sort || 'notes';
-//  const order = req.query.order || 'DESC';
-
-//const allowedFields = ['title', 'release_date', 'notes', 'duration'];
-
-//const sortField = allowedFields.includes(sort) ? sort : 'notes';
-
-//const movies = await movieRepository
-//.createQueryBuilder('movie')
-//  .orderBy(`movie.${sortField}`, order.toUpperCase())
-//.addOrderBy('movie.title', 'ASC')
-//.getMany();
-
-// res.json({ movies });
-//});
-
 export default router;

@@ -24,8 +24,6 @@ const startServer = async () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 
-
-
   // Register routes
   app.use('/', indexRouter);
   app.use('/users', usersRouter);
