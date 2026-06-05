@@ -4,7 +4,7 @@
  * et l'envoie dans chaque requête vers le backend.
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const API_BASE = 'http://localhost:8000/api';
 
@@ -37,9 +37,9 @@ async function apiFetch(path, options = {}) {
 
 export function useRecommendations() {
   const [recommendations, setRecommendations] = useState([]);
-  const [userRatings, setUserRatings]         = useState([]);
-  const [isLoading, setIsLoading]             = useState(true);
-  const [error, setError]                     = useState(null);
+  const [userRatings, setUserRatings] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const refresh = useCallback(async () => {
     setIsLoading(true);
@@ -49,7 +49,9 @@ export function useRecommendations() {
         apiFetch('/recommendations'),
         apiFetch('/ratings'),
       ]);
-      setRecommendations(Array.isArray(recs) ? recs : recs.recommendations ?? []);
+      setRecommendations(
+        Array.isArray(recs) ? recs : recs.recommendations ?? []
+      );
       setUserRatings(ratings);
     } catch (err) {
       setError(err.message);
@@ -72,32 +74,38 @@ export function useRecommendations() {
    * @param {number} movieId  ID du film dans ta BDD (pas le tmdb_id)
    * @param {number} score    Note entre 1 et 10
    */
-  const rateMovie = useCallback(async (movieId, score) => {
-    setError(null);
-    try {
-      await apiFetch('/ratings', {
-        method: 'POST',
-        body: JSON.stringify({ movieId, score }),
-      });
-      await refresh();
-    } catch (err) {
-      setError(err.message);
-    }
-  }, [refresh]);
+  const rateMovie = useCallback(
+    async (movieId, score) => {
+      setError(null);
+      try {
+        await apiFetch('/ratings', {
+          method: 'POST',
+          body: JSON.stringify({ movieId, score }),
+        });
+        await refresh();
+      } catch (err) {
+        setError(err.message);
+      }
+    },
+    [refresh]
+  );
 
   /**
    * Supprime la note d'un film et recharge les recommandations.
    * @param {number} movieId
    */
-  const removeRating = useCallback(async (movieId) => {
-    setError(null);
-    try {
-      await apiFetch(`/ratings/${movieId}`, { method: 'DELETE' });
-      await refresh();
-    } catch (err) {
-      setError(err.message);
-    }
-  }, [refresh]);
+  const removeRating = useCallback(
+    async (movieId) => {
+      setError(null);
+      try {
+        await apiFetch(`/ratings/${movieId}`, { method: 'DELETE' });
+        await refresh();
+      } catch (err) {
+        setError(err.message);
+      }
+    },
+    [refresh]
+  );
 
   return {
     recommendations, // [{ movieId, title, predictedScore }]

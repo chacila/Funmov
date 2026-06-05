@@ -36,6 +36,7 @@ function MovieDetails() {
         <h1 className="movie-title">{movie.title}</h1>
 
         <p className="movie-meta">🎬 Sortie : {movie.release_date}</p>
+        <p className="movie-vote">Note du public : {movie.vote} / 10</p>
 
         <p className="movie-overview">{movie.overview}</p>
       </div>

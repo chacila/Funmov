@@ -28,7 +28,7 @@ const User = new typeorm.EntitySchema({
   relations: {
     ratings: {
       type: 'one-to-many',
-      target: 'UserMovie',
+      target: 'Rating',
       inverseSide: 'user',
     },
   },
