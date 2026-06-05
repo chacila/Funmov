@@ -7,10 +7,13 @@ import User from '../entities/user.js';
 const router = express.Router();
 
 router.post('/register', async (req, res) => {
+  console.log("toto")
   try {
     const repo = appDataSource.getRepository(User);
 
     const { email, username, password } = req.body;
+
+    console.log(repo)
 
     if (!email || !password) {
       return res.status(400).json({

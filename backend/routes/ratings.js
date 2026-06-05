@@ -5,15 +5,12 @@ import Rating from '../entities/rating.js';
 import { getRecommendations } from '../reco/pearson.js';
 
 const router = Router();
+ 
 
-// ----------------------------------------------------------------
-//  POST /api/ratings
-//  Ajoute ou met à jour la note de l'utilisateur connecté
-// ----------------------------------------------------------------
 router.post('/ratings', async (req, res) => {
-  const userId = req.user.id;
-  const { movieId, score } = req.body;
-
+  const { movieId, score, userId } = req.body;
+  console.log(req.body)
+ 
   if (!movieId || score == null) {
     return res.status(400).json({ error: 'movieId et score sont requis.' });
   }
@@ -27,7 +24,7 @@ router.post('/ratings', async (req, res) => {
   const ratingRepo = appDataSource.getRepository(Rating);
 
   // Vérifie que le film existe dans la BDD
-  const movie = await movieRepo.findOneBy({ id: movieId });
+  const movie = await movieRepo.findOneBy({ tmdb_id: movieId });
   if (!movie) {
     return res.status(404).json({ error: 'Film introuvable.' });
   }
@@ -83,8 +80,8 @@ router.delete('/ratings/:movieId', async (req, res) => {
 //  Retourne toutes les notes de l'utilisateur connecté
 // ----------------------------------------------------------------
 router.get('/ratings', async (req, res) => {
-  const userId = req.user.id;
-
+  const userId = req.params.userId;
+ 
   const ratings = await appDataSource
     .getRepository(Rating)
     .createQueryBuilder('rating')
@@ -108,9 +105,9 @@ router.get('/ratings', async (req, res) => {
 //  Query param optionnel : ?limit=10
 // ----------------------------------------------------------------
 router.get('/recommendations', async (req, res) => {
-  const userId = req.user.id;
-  const limit = Math.min(parseInt(req.query.limit, 10) || 10, 50);
-
+  const userId = req.params.userId;
+  const limit  = Math.min(parseInt(req.query.limit, 10) || 10, 50);
+ 
   const ratingRepo = appDataSource.getRepository(Rating);
   const movieRepo = appDataSource.getRepository(Movie);
 

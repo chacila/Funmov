@@ -1,29 +1,27 @@
 /**
- * hooks/useRecommendations.js  (version backend)
- *
- * Remplace l'ancienne version JSON-local.
- * Appelle l'API Express pour noter les films et récupérer les recommandations.
- * Le calcul Pearson est entièrement côté serveur.
- *
- * Usage :
- *   const { recommendations, userRatings, rateMovie, isLoading, error }
- *     = useRecommendations();
+ * Hook React pour le système de recommandation.
+ * Lit le token JWT stocké dans localStorage après le login,
+ * et l'envoie dans chaque requête vers le backend.
  */
 
 import { useCallback, useEffect, useState } from 'react';
 
-const API_BASE = import.meta.env.VITE_API_URL ?? '/api';
+const API_BASE = 'http://localhost:8000/api';
 
 /**
- * Wrapper fetch avec le token JWT stocké (adapte selon ton système d'auth).
+ * Wrapper axios-like avec le token JWT.
+ * Lit automatiquement le token stocké au moment du login :
+ *   localStorage.setItem('token', data.token)
  */
 async function apiFetch(path, options = {}) {
-  const token = localStorage.getItem('token'); // adapte si tu utilises un autre stockage
+  const token = localStorage.getItem('token');
 
   const res = await fetch(`${API_BASE}${path}`, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
+      // Token JWT envoyé dans chaque requête — lu par authMiddleware côté Express
+      // qui le vérifie et injecte req.user = { id, email }
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...options.headers,
     },
@@ -31,7 +29,7 @@ async function apiFetch(path, options = {}) {
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    throw new Error(body.error ?? `Erreur ${res.status}`);
+    throw new Error(body.message ?? `Erreur ${res.status}`);
   }
 
   return res.json();
@@ -43,7 +41,6 @@ export function useRecommendations() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Charge les notes et recommandations de l'utilisateur connecté
   const refresh = useCallback(async () => {
     setIsLoading(true);
     setError(null);
@@ -64,12 +61,17 @@ export function useRecommendations() {
   }, []);
 
   useEffect(() => {
-    refresh();
+    // Ne charge que si l'utilisateur est connecté (token présent)
+    if (localStorage.getItem('token')) {
+      refresh();
+    } else {
+      setIsLoading(false);
+    }
   }, [refresh]);
 
   /**
-   * Note un film, puis recharge les recommandations.
-   * @param {number} movieId  ID TMDB du film
+   * Note un film et recharge les recommandations.
+   * @param {number} movieId  ID du film dans ta BDD (pas le tmdb_id)
    * @param {number} score    Note entre 1 et 10
    */
   const rateMovie = useCallback(
@@ -89,7 +91,7 @@ export function useRecommendations() {
   );
 
   /**
-   * Supprime la note d'un film, puis recharge les recommandations.
+   * Supprime la note d'un film et recharge les recommandations.
    * @param {number} movieId
    */
   const removeRating = useCallback(
@@ -107,9 +109,9 @@ export function useRecommendations() {
 
   return {
     recommendations, // [{ movieId, title, predictedScore }]
-    userRatings, // [{ movieId, title, score }]
-    rateMovie, // (movieId, score) => Promise<void>
-    removeRating, // (movieId) => Promise<void>
+    userRatings,     // [{ movieId, title, score, posterPath }]
+    rateMovie,       // (movieId, score) => Promise<void>
+    removeRating,    // (movieId) => Promise<void>
     isLoading,
     error,
     refresh,
