@@ -9,6 +9,7 @@ import { jsonErrorHandler } from './services/jsonErrorHandler.js';
 import { routeNotFoundJsonHandler } from './services/routeNotFoundJsonHandler.js';
 import moviesRouter from './routes/movies.js';
 import authRouter from './routes/auth.js';
+import ratingsRouter from './routes/ratings.js';
 
 const startServer = async () => {
   console.log('Data Source has been initialized!');
@@ -23,14 +24,17 @@ const startServer = async () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 
+
+
+  // Register routes
   app.use('/', indexRouter);
   app.use('/users', usersRouter);
   app.use('/movies', moviesRouter);
+  app.use('/api', ratingsRouter);
 
-  app.use('/auth', authRouter);
-
-  app.use(routeNotFoundJsonHandler);
-  app.use(jsonErrorHandler);
+  // Register 404 middleware and error handler
+  app.use(routeNotFoundJsonHandler); // this middleware must be registered after all routes to handle 404 correctly
+  app.use(jsonErrorHandler); // this error handler must be registered after all middleware to catch all errors
 
   const port = parseInt(process.env.PORT || '8000');
 
