@@ -37,7 +37,7 @@ function Home() {
 
         <input
           type="text"
-          placeholder="Rechercher une comédie, ex: Superbad..."
+          placeholder="Rechercher une comédie"
           value={movieName}
           onChange={(event) => setMovieName(event.target.value)}
           className="search-input"
